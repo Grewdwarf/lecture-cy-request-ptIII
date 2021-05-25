@@ -1,6 +1,27 @@
 /// <reference types="cypress" />
 
+import * as client from '../helpers/clientHelpers'
+
 describe('Test suite', () => {
+    it('Create a new client', () => {
+        cy.authenticate().then((response => {
+            client.createClientRequest()
+            client.performLogout()
+        }))
+    })
+
+    it('Delete a client', () => {       // it.only -> runs this test suite only
+        cy.authenticate().then((response => {
+            client.createClientRequest()
+            client.deleteClientRequest(Cypress.env().lastID)
+            client.performLogout()
+        }))
+    })
+
+
+    /*
+OBS: KOD NEDAN ÄR OFARLIGT ATT RADERA
+
     it('GET request towards /api/clients', () => {
         cy.authenticate().then((response =>{
             cy.request({
@@ -183,6 +204,7 @@ describe('Test suite', () => {
             }))
         }))
        
-    })
+    })*/
+
 
 })
